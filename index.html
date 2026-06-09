@@ -1,0 +1,2376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-bF9eDr17AutbKtHLrxmxe1q6YXKU1MHZm4JMuT3RV1E='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mayowa Alaketu's interactive report from Microsoft Build 2026.">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#033024">
+  <link rel="icon" href="assets/brand/microsoft-build-logo.png" type="image/png">
+  <title>Mayowa's Microsoft Build 2026 Report</title>
+  <style>
+    @font-face {
+      font-family: "Helvetica Neue LT Std";
+      src: url("assets/pli/fonts/HelveticaNeueLTStd-500.ttf") format("truetype");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Helvetica Neue LT Std";
+      src: url("assets/pli/fonts/HelveticaNeueLTStd-700.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Helvetica Neue LT Std";
+      src: url("assets/pli/fonts/HelveticaNeueLTStd-300.ttf") format("truetype");
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --pli-red: #E4002B;
+      --pli-black: #000000;
+      --pli-white: #FFFFFF;
+      --pli-paper: #F8F5F9;
+      --pli-line: #E8E0EA;
+      --pli-muted: #545057;
+      --ink: #000000;
+      --ink-soft: #332f31;
+      --muted: #545057;
+      --paper: #FFFFFF;
+      --paper-warm: #F8F5F9;
+      --clay: #c98c74;
+      --clay-soft: #ecd6ca;
+      --roman: #d9aa8e;
+      --emerald: #033024;
+      --emerald-deep: #011c15;
+      --lime: #c5d45d;
+      --lime-pale: #eef2c3;
+      --gold: #947100;
+      --gold-light: #d6bb72;
+      --gold-dark: #5c4717;
+      --white: #FFFFFF;
+      --line: rgba(0, 0, 0, 0.12);
+      --shadow: 0 18px 46px rgba(0, 0, 0, 0.10);
+      --radius: 8px;
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background:
+        linear-gradient(90deg, rgba(228, 0, 43, .06) 0 0.7%, transparent 0.7% 100%),
+        linear-gradient(128deg, rgba(222, 236, 198, .74) 0%, rgba(246, 242, 226, .96) 28%, rgba(217, 170, 142, .22) 48%, rgba(199, 220, 178, .64) 68%, rgba(3, 48, 36, .16) 100%),
+        #F4F2E7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(228,0,43,.13) 0 5px, transparent 5px 100%),
+        linear-gradient(116deg, transparent 0 46%, rgba(148,113,0,.13) 46.2%, transparent 57%),
+        linear-gradient(76deg, transparent 0 63%, rgba(3,48,36,.13) 63.2%, transparent 78%),
+        repeating-linear-gradient(118deg, rgba(255,255,255,.18) 0 2px, transparent 2px 17px),
+        repeating-linear-gradient(16deg, rgba(3,48,36,.035) 0 1px, transparent 1px 19px);
+      transform: translateZ(0);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .22;
+      mix-blend-mode: multiply;
+      background-image:
+        repeating-linear-gradient(0deg, transparent 0 12px, rgba(0,0,0,.018) 12px 13px),
+        repeating-linear-gradient(90deg, transparent 0 12px, rgba(0,0,0,.012) 12px 13px);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--pli-red);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 12px;
+      z-index: 200;
+      transform: translateY(-140%);
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--white);
+      background: var(--emerald-deep);
+      border: 1px solid rgba(214,187,114,.5);
+      text-decoration: none;
+      transition: transform .2s var(--ease);
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
+
+    .progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 4px;
+      z-index: 100;
+      background: rgba(255,255,255,.35);
+    }
+
+    .progress__bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--emerald), var(--lime), var(--gold-light));
+      box-shadow: 0 0 14px rgba(185, 147, 77, .34);
+      transition: width .08s linear;
+    }
+
+    .cursor-dot,
+    .cursor-triangle {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 90;
+      transform: translate(-50%, -50%);
+      display: none;
+      will-change: transform, opacity;
+    }
+
+    .cursor-dot {
+      --cursor-scale: 1;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--emerald);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.7), 0 0 18px rgba(15, 81, 57, .38);
+    }
+
+    .cursor-triangle {
+      width: 18px;
+      height: 22px;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+      background: linear-gradient(180deg, rgba(214,187,114,.72), rgba(3,48,36,.28));
+      opacity: .52;
+    }
+
+    .cursor-triangle.trail-two {
+      width: 16px;
+      height: 20px;
+      opacity: .32;
+    }
+
+    .cursor-triangle.trail-three {
+      width: 14px;
+      height: 18px;
+      opacity: .16;
+    }
+
+    .cursor-active .cursor-dot {
+      --cursor-scale: 1.45;
+      background: var(--gold-dark);
+    }
+
+    .app {
+      width: min(1480px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 54px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 70;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--pli-line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, .08);
+    }
+
+    .topbar::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 6px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pli-red), var(--gold-light), var(--emerald), var(--lime));
+      opacity: .94;
+      pointer-events: none;
+    }
+
+    .brand-chip,
+    .author-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 8px 11px;
+      border-radius: var(--radius);
+      background: var(--pli-white);
+      border: 1px solid var(--pli-line);
+      white-space: nowrap;
+    }
+
+    .pli-logo {
+      display: block;
+      width: 88px;
+      height: auto;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand-divider {
+      width: 1px;
+      align-self: stretch;
+      min-height: 28px;
+      background: var(--pli-line);
+    }
+
+    .brand-chip span,
+    .author-chip span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.1;
+    }
+
+    .brand-chip strong,
+    .author-chip strong {
+      display: block;
+      font-size: 12px;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      min-width: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav button,
+    .pill-button {
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--ink-soft);
+      padding: 11px 13px;
+      cursor: pointer;
+      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+      white-space: nowrap;
+    }
+
+    .nav button:hover,
+    .nav button.active,
+    .pill-button:hover,
+    .pill-button.active {
+      color: var(--emerald-deep);
+      background: rgba(248, 245, 249, .86);
+      border-color: var(--pli-line);
+      transform: translateY(-1px);
+    }
+
+    .author-avatar,
+    .signature-avatar {
+      display: block;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background:
+        linear-gradient(145deg, rgba(3,48,36,.96), rgba(1,28,21,.96)),
+        var(--emerald);
+      border: 1px solid rgba(214,187,114,.7);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, .8), 0 12px 24px rgba(0, 0, 0, .12);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 86vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, .72fr);
+      gap: clamp(26px, 5vw, 80px);
+      align-items: center;
+      padding: clamp(50px, 7vw, 92px) 0 clamp(34px, 5vw, 58px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      color: var(--pli-black);
+      border: 1px solid var(--pli-line);
+      background: rgba(255,255,255,.88);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 3px;
+      background: var(--pli-red);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 840px;
+      margin-bottom: 22px;
+      font-size: clamp(46px, 5vw, 76px);
+      line-height: .98;
+      letter-spacing: 0;
+      font-weight: 700;
+      white-space: normal;
+      overflow-wrap: normal;
+    }
+
+    .text-gradient {
+      color: transparent;
+      background: linear-gradient(105deg, var(--pli-black) 0%, var(--pli-black) 45%, var(--emerald) 70%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 770px;
+      color: var(--ink-soft);
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.45;
+    }
+
+    .build-signal-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 22px 0 0;
+    }
+
+    .build-signal-row a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 7px 10px;
+      border-radius: var(--radius);
+      border: 1px solid var(--pli-line);
+      background: rgba(255,255,255,.86);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .24s var(--ease), border-color .24s var(--ease), background .24s var(--ease), color .24s var(--ease), filter .24s var(--ease);
+    }
+
+    .build-signal-row a:hover {
+      color: var(--emerald-deep);
+      background: var(--pli-white);
+      border-color: rgba(148,113,0,.28);
+      filter: drop-shadow(0 12px 20px rgba(3,48,36,.10));
+      transform: translateY(-1px);
+    }
+
+    .build-signal-row a::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-right: 8px;
+      border-radius: 2px;
+      background: var(--signal-color, var(--pli-red));
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 30px 0 0;
+    }
+
+    .cta,
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border-radius: var(--radius);
+      padding: 13px 18px;
+      border: 1px solid rgba(148,113,0,.38);
+      text-decoration: none;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+    }
+
+    .cta {
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.2), transparent 35%),
+        linear-gradient(135deg, var(--pli-black), var(--emerald-deep));
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    }
+
+    .ghost {
+      color: var(--emerald-deep);
+      background: rgba(255,255,255,.86);
+    }
+
+    .cta:hover,
+    .ghost:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 50px rgba(77, 52, 34, .16);
+    }
+
+    .nav-traveling .topbar,
+    .nav-traveling .cta,
+    .nav-traveling .ghost,
+    .nav-traveling .nav button.is-jumping {
+      transform: translateY(-1px);
+    }
+
+    .signal-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+      border-radius: var(--radius);
+      border: 1px solid var(--pli-line);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.96), rgba(248,245,249,.92)),
+        var(--pli-white);
+      box-shadow: var(--shadow);
+      transform-style: preserve-3d;
+    }
+
+    .signal-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .9;
+      background:
+        linear-gradient(90deg, var(--pli-red) 0 5px, transparent 5px),
+        linear-gradient(120deg, transparent 0 12%, rgba(214,187,114,.22) 12.2%, transparent 20%),
+        linear-gradient(70deg, transparent 0 54%, rgba(3,48,36,.16) 54.2%, transparent 72%),
+        repeating-linear-gradient(112deg, rgba(3,48,36,.045) 0 1px, transparent 1px 32px),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .035) 0 1px, transparent 1px 48px);
+      transform: translateZ(-1px);
+    }
+
+    .signal-panel::after {
+      content: "";
+      position: absolute;
+      inset: var(--spot-y, 42%) auto auto var(--spot-x, 48%);
+      width: 320px;
+      height: 320px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,255,255,.50), rgba(255,255,255,0) 62%);
+      pointer-events: none;
+      opacity: .55;
+    }
+
+    .signal-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      min-height: inherit;
+      padding: 28px;
+      grid-template-rows: auto 1fr auto;
+      gap: 20px;
+    }
+
+    .panel-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .micro-label {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .panel-top h2 {
+      margin-bottom: 0;
+      font-size: clamp(24px, 3vw, 40px);
+      line-height: 1;
+    }
+
+    .satin-meter {
+      width: 112px;
+      height: 112px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 8px;
+      background:
+        conic-gradient(from 220deg, var(--emerald), var(--lime), var(--gold-light), var(--clay), var(--emerald));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 18px 42px rgba(15, 81, 57, .2);
+      animation: meterTurn 42s linear infinite;
+      transition: transform .55s cubic-bezier(.16, 1, .3, 1);
+      will-change: transform;
+    }
+
+    .satin-meter:hover {
+      animation: none;
+      transform: rotate(0deg) scale(1.04);
+    }
+
+    .satin-meter img {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      display: block;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.65);
+    }
+
+    @keyframes meterTurn {
+      to { transform: rotate(360deg); }
+    }
+
+    .signal-list {
+      align-self: center;
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .signal-list li {
+      display: grid;
+      grid-template-columns: 62px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--pli-line);
+      background: rgba(255,255,255,.78);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+      transition: transform .25s var(--ease), background .25s var(--ease);
+    }
+
+    .signal-list li:hover {
+      transform: translateX(4px);
+      background: rgba(255,255,255,.96);
+    }
+
+    .signal-asset {
+      display: block;
+      width: 62px;
+      height: 48px;
+      border-radius: var(--radius);
+      background: rgba(0,0,0,.04);
+      border: 1px solid rgba(185,147,77,.22);
+      object-fit: cover;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .signal-asset.contain {
+      object-fit: contain;
+      padding: 7px;
+      background: #000;
+    }
+
+    .signal-list strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .signal-list span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .panel-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(28,23,20,.1);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section {
+      padding: clamp(52px, 7vw, 96px) 0;
+      scroll-margin-top: 100px;
+    }
+
+    .section--band {
+      width: 100%;
+      margin-left: 0;
+      padding-left: 0;
+      padding-right: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.86), rgba(248,245,249,.92)),
+        linear-gradient(120deg, rgba(228,0,43,.035), rgba(148,113,0,.07), rgba(3,48,36,.04));
+      border-block: 1px solid var(--pli-line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, .62fr);
+      gap: clamp(24px, 5vw, 72px);
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .section-kicker {
+      margin: 0 0 12px;
+      color: var(--pli-red);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-size: 12px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 74px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .section-lede {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(17px, 1.6vw, 21px);
+      line-height: 1.55;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card,
+    .tool-panel,
+    .timeline-detail,
+    .source-drawer,
+    .quote-panel,
+    .audience-panel {
+      border-radius: var(--radius);
+      border: 1px solid var(--pli-line);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.98), rgba(248,245,249,.78)),
+        var(--pli-white);
+      box-shadow: 0 16px 42px rgba(0, 0, 0, .08);
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      min-height: 210px;
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pli-red), var(--gold-light), var(--emerald), var(--lime));
+      opacity: .82;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(228,0,43,.22);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, .10);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .stack-layout {
+      display: grid;
+      grid-template-columns: minmax(250px, 360px) minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .stack-buttons {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .stack-button {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      padding: 13px;
+      border-radius: var(--radius);
+      border: 1px solid var(--pli-line);
+      color: var(--ink-soft);
+      background: rgba(255,255,255,.78);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+    }
+
+    .stack-button:hover,
+    .stack-button.active {
+      color: var(--emerald-deep);
+      border-color: rgba(228,0,43,.22);
+      background: var(--pli-white);
+      transform: translateX(4px);
+    }
+
+    .stack-thumb {
+      display: block;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      background: rgba(0,0,0,.05);
+      border: 1px solid rgba(185,147,77,.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .tool-panel {
+      min-height: 462px;
+      padding: clamp(22px, 3vw, 36px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .tool-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 38%;
+      opacity: .46;
+      background:
+        linear-gradient(0deg, rgba(3,48,36,.10), transparent),
+        repeating-linear-gradient(90deg, rgba(148,113,0,.20) 0 1px, transparent 1px 80px);
+      pointer-events: none;
+    }
+
+    .tool-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-content h3 {
+      margin-bottom: 12px;
+      font-size: clamp(30px, 4vw, 58px);
+      line-height: .98;
+    }
+
+    .tool-visual {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 2.42 / 1;
+      min-height: 220px;
+      max-height: 360px;
+      margin: 18px 0 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(185,147,77,.22);
+      background: rgba(0,0,0,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 18px 42px rgba(0,0,0,.08);
+      transition: aspect-ratio .55s var(--ease), max-height .55s var(--ease), box-shadow .35s var(--ease);
+      isolation: isolate;
+    }
+
+    .tool-visual:hover,
+    .tool-visual.is-expanded {
+      aspect-ratio: 16 / 9;
+      max-height: 620px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 24px 64px rgba(3,48,36,.14);
+    }
+
+    .tool-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(228,0,43,.22) 0 4px, transparent 4px),
+        linear-gradient(0deg, rgba(0,0,0,.20), transparent 42%);
+      pointer-events: none;
+    }
+
+    .tool-visual img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: var(--image-focus, 50% 35%);
+      transform: scale(1.02);
+      transition: transform .55s var(--ease), opacity .24s var(--ease);
+    }
+
+    .tool-visual:hover img,
+    .tool-visual.is-expanded img {
+      transform: scale(1);
+    }
+
+    .tool-visual img.contain,
+    .stack-thumb.contain {
+      object-fit: contain;
+      padding: 8px;
+      background: #000;
+    }
+
+    .tool-visual img.contain {
+      padding: 36px;
+      object-position: center;
+    }
+
+    .image-credit {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      z-index: 2;
+      max-width: min(54ch, calc(100% - 28px));
+      color: rgba(255,250,245,.86);
+      font-size: 11px;
+      line-height: 1.25;
+      text-align: right;
+      text-decoration: none;
+      text-shadow:
+        0 0 14px rgba(214,187,114,.75),
+        0 1px 10px rgba(0,0,0,.7),
+        0 2px 18px rgba(0,0,0,.56);
+      opacity: .84;
+      transition: opacity .2s var(--ease), transform .2s var(--ease);
+    }
+
+    .image-credit:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .tool-panel.is-swapping .tool-visual img,
+    .timeline-detail.is-swapping {
+      transform: translateX(10px);
+      opacity: .78;
+    }
+
+    .tool-content p {
+      max-width: 760px;
+      color: var(--ink-soft);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .mini-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .mini-tags a {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: var(--radius);
+      color: var(--emerald-deep);
+      border: 1px solid rgba(3,48,36,.16);
+      background: rgba(238,242,195,.48);
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      transition: transform .24s var(--ease), background .24s var(--ease), border-color .24s var(--ease);
+    }
+
+    .mini-tags a:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.94);
+      border-color: rgba(148,113,0,.30);
+    }
+
+    .timeline-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 400px) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .timeline-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline-button {
+      width: 100%;
+      border: 1px solid var(--pli-line);
+      border-radius: var(--radius);
+      padding: 15px;
+      color: var(--ink-soft);
+      background: rgba(255,255,255,.78);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+    }
+
+    .timeline-button:hover,
+    .timeline-button.active {
+      transform: translateX(4px);
+      background: var(--pli-white);
+      border-color: rgba(228,0,43,.22);
+    }
+
+    .timeline-button span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--pli-red);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .timeline-detail {
+      min-height: 456px;
+      padding: clamp(24px, 3vw, 40px);
+      display: grid;
+      align-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform .28s var(--ease), opacity .28s var(--ease);
+    }
+
+    .timeline-detail::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--pli-line);
+      pointer-events: none;
+    }
+
+    .timeline-detail h3 {
+      position: relative;
+      margin-bottom: 14px;
+      font-size: clamp(30px, 4vw, 60px);
+      line-height: 1;
+    }
+
+    .timeline-detail p {
+      position: relative;
+      max-width: 780px;
+      color: var(--ink-soft);
+      font-size: 18px;
+      line-height: 1.62;
+    }
+
+    .timeline-detail a {
+      position: relative;
+      width: fit-content;
+      margin-top: 8px;
+      display: inline-flex;
+      padding: 11px 13px;
+      border-radius: var(--radius);
+      color: var(--emerald-deep);
+      text-decoration: none;
+      border: 1px solid rgba(3,48,36,.18);
+      background: rgba(255,255,255,.86);
+    }
+
+    .loop {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 10px;
+      margin: 26px 0;
+    }
+
+    .loop-step {
+      min-height: 150px;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(185,147,77,.22);
+      background: rgba(255,255,255,.82);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+      transition: transform .25s var(--ease), background .25s var(--ease);
+    }
+
+    .loop-step:hover {
+      transform: translateY(-4px);
+      background: var(--pli-white);
+    }
+
+    .loop-icon {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 16px;
+      border-radius: var(--radius);
+      color: var(--emerald-deep);
+      background: linear-gradient(145deg, rgba(228,232,183,.8), rgba(223,195,123,.48));
+      font-weight: 900;
+      position: relative;
+    }
+
+    .loop-icon::before,
+    .loop-icon::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 2px solid var(--emerald);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    .loop-icon::after {
+      inset: 14px 8px 8px 14px;
+      border-color: var(--gold-dark);
+      opacity: .62;
+    }
+
+    .loop-step h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .loop-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .quote-panel {
+      padding: clamp(24px, 4vw, 44px);
+      background:
+        linear-gradient(135deg, rgba(0,0,0,.97), rgba(3,48,36,.92)),
+        var(--pli-black);
+      color: var(--white);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .quote-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, var(--pli-red) 0 6px, transparent 6px),
+        linear-gradient(110deg, transparent 0 54%, rgba(214,187,114,.18) 55%, transparent 67%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 42px);
+      pointer-events: none;
+    }
+
+    .quote-panel p,
+    .quote-panel h2,
+    .quote-panel .section-kicker {
+      position: relative;
+    }
+
+    .quote-panel .section-kicker {
+      color: var(--gold-light);
+    }
+
+    .quote-panel h2 {
+      max-width: 980px;
+      margin-bottom: 14px;
+      color: var(--white);
+    }
+
+    .quote-panel p {
+      max-width: 780px;
+      color: rgba(255,250,245,.82);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .builder-chain {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .builder-chain li {
+      flex: 0 0 auto;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 11px;
+      border-radius: var(--radius);
+      color: rgba(255,250,245,.88);
+      border: 1px solid rgba(214,187,114,.24);
+      background: rgba(255,250,245,.08);
+      white-space: nowrap;
+    }
+
+    .audience-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 14px;
+    }
+
+    .audience-panel {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+      gap: 28px;
+      padding: clamp(24px, 4vw, 44px);
+      min-height: 360px;
+      align-items: center;
+    }
+
+    .audience-panel h3 {
+      margin-bottom: 12px;
+      font-size: clamp(30px, 4vw, 58px);
+      line-height: 1;
+    }
+
+    .audience-panel p {
+      color: var(--ink-soft);
+      font-size: 18px;
+      line-height: 1.62;
+    }
+
+    .takeaway-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .takeaway-list li {
+      display: grid;
+      grid-template-columns: 12px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+
+    .takeaway-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      margin-top: 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold-light), var(--emerald));
+    }
+
+    .source-drawer {
+      padding: 20px;
+    }
+
+    .source-drawer summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--emerald-deep);
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .source-grid a {
+      display: block;
+      min-height: 52px;
+      padding: 12px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1px solid rgba(185,147,77,.18);
+      background: rgba(255,255,255,.84);
+      color: var(--ink-soft);
+      transition: transform .25s var(--ease), background .25s var(--ease);
+    }
+
+    .source-grid a:hover {
+      transform: translateY(-2px);
+      background: var(--pli-white);
+      color: var(--emerald-deep);
+    }
+
+    .signature {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 26px;
+      align-items: end;
+      padding: clamp(30px, 5vw, 54px);
+      border-radius: var(--radius);
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(0,0,0,.96), rgba(3,48,36,.88)),
+        var(--pli-black);
+      box-shadow: 0 28px 72px rgba(0,0,0,.24);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .signature::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, var(--pli-red) 0 7px, transparent 7px),
+        linear-gradient(116deg, transparent 0 38%, rgba(214,187,114,.24) 39%, transparent 54%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 44px);
+      pointer-events: none;
+    }
+
+    .signature > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .signature h2 {
+      margin-bottom: 12px;
+      font-size: clamp(36px, 5vw, 78px);
+      line-height: .96;
+    }
+
+    .signature p {
+      max-width: 780px;
+      margin: 0;
+      color: rgba(255,250,245,.8);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .signature-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 280px;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: rgba(255,250,245,.12);
+      border: 1px solid rgba(223,195,123,.28);
+    }
+
+    .signature-pli-logo {
+      display: block;
+      width: 94px;
+      height: auto;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
+    }
+
+    .signature-avatar {
+      width: 58px;
+      height: 58px;
+      box-shadow: 0 0 0 4px rgba(255,250,245,.11), 0 14px 26px rgba(0,0,0,.22);
+    }
+
+    .signature-card strong,
+    .signature-card span {
+      display: block;
+    }
+
+    .signature-card span {
+      color: rgba(255,250,245,.72);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .signature-card a {
+      display: inline-flex;
+      margin-top: 8px;
+      color: var(--lime-pale);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(228,232,183,.4);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px) scale(.985);
+      transition: opacity .58s var(--ease), transform .58s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .write-in .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(.36em) translateX(.18em);
+      animation: writeChar .34s var(--ease) forwards;
+      animation-delay: calc(var(--char-index) * 9ms + var(--write-delay, 0ms));
+      animation-play-state: paused;
+    }
+
+    .write-in .word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .write-in.is-writing .char {
+      animation-play-state: running;
+    }
+
+    .text-gradient.write-in .char {
+      color: transparent;
+      background: linear-gradient(105deg, var(--pli-black) 0%, var(--pli-black) 45%, var(--emerald) 70%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    @keyframes writeChar {
+      70% {
+        opacity: 1;
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: var(--emerald-deep);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(15,81,57,.2);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .cursor-dot,
+      .cursor-triangle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-chip,
+      .author-chip {
+        width: fit-content;
+      }
+
+      .hero,
+      .section-head,
+      .stack-layout,
+      .timeline-layout,
+      .audience-panel,
+      .signature {
+        grid-template-columns: 1fr;
+      }
+
+      .signal-panel {
+        min-height: 460px;
+      }
+
+      h1 {
+        max-width: 100%;
+        font-size: 48px;
+        white-space: normal;
+      }
+
+      .loop {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        width: min(100% - 20px, 1480px);
+        padding-top: 10px;
+      }
+
+      .topbar {
+        top: 8px;
+      }
+
+      .nav {
+        justify-content: flex-start;
+        width: 100%;
+        flex-wrap: wrap;
+        overflow-x: visible;
+      }
+
+      .section--band {
+        width: auto;
+        margin-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      h1 {
+        font-size: 42px;
+        line-height: 1;
+      }
+
+      .signal-panel {
+        min-height: auto;
+      }
+
+      .signal-inner {
+        padding: 18px;
+      }
+
+      .panel-top,
+      .panel-bottom,
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .satin-meter {
+        width: 76px;
+        height: 76px;
+      }
+
+      .grid-3,
+      .source-grid,
+      .loop {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: auto;
+      }
+
+      .tool-visual {
+        aspect-ratio: 16 / 9;
+        min-height: 0;
+        max-height: none;
+      }
+
+      .signature-card {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+
+      .cursor-dot,
+      .cursor-triangle {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to report</a>
+  <div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-triangle trail-one" id="cursorTrailOne" aria-hidden="true"></div>
+  <div class="cursor-triangle trail-two" id="cursorTrailTwo" aria-hidden="true"></div>
+  <div class="cursor-triangle trail-three" id="cursorTrailThree" aria-hidden="true"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <a class="brand-chip" href="#top" aria-label="Back to report opening">
+        <img class="pli-logo" src="assets/pli/pli-wordmark-red-transparent.png" alt="PLI" decoding="async">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span><strong>Microsoft Build 2026</strong><span>Report</span></span>
+      </a>
+      <nav class="nav" aria-label="Report sections">
+        <button type="button" data-jump="shift">Shift</button>
+        <button type="button" data-jump="stack">Stack</button>
+        <button type="button" data-jump="timeline">Signals</button>
+        <button type="button" data-jump="hill">Hill Climb</button>
+        <button type="button" data-jump="audiences">Meaning</button>
+        <button type="button" data-jump="sources">Sources</button>
+      </nav>
+      <a class="author-chip" href="https://www.linkedin.com/in/mayowa-alaketu-52472110b" target="_blank" rel="noreferrer noopener">
+        <img class="author-avatar" src="assets/author/mayowa-portrait.png" alt="Mayowa Alaketu" decoding="async">
+        <span><strong>Mayowa Alaketu</strong><span>Report Author</span></span>
+      </a>
+    </header>
+
+    <section class="hero reveal visible" id="top">
+      <div>
+        <p class="eyebrow">Microsoft Build 2026 / San Francisco and online</p>
+        <h1><span class="text-gradient" data-write>Creativity and discipline make ideas scalable.</span></h1>
+        <p class="hero-copy">A personal report from Mayowa Alaketu on what Microsoft Build 2026 made feel immediate: creativity and determination matter, but the multiplier is the system around the idea. With the right workflow, tools, data, security, and feedback loops, a concept can move from raw spark to prototype, product, deployment, and scale.</p>
+        <div class="build-signal-row" aria-label="Microsoft Build topic signals">
+          <a style="--signal-color:#7FBA00" href="https://blogs.windows.com/windowsdeveloper/2026/06/02/build-2026-furthering-windows-as-the-trusted-platform-for-development/" target="_blank" rel="noreferrer noopener">Windows</a>
+          <a style="--signal-color:#FFB900" href="https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/" target="_blank" rel="noreferrer noopener">GitHub + Dev Tools</a>
+          <a style="--signal-color:#111111" href="https://openai.com/" target="_blank" rel="noreferrer noopener">OpenAI</a>
+          <a style="--signal-color:#E4002B" href="https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/" target="_blank" rel="noreferrer noopener">Agents + Governance</a>
+          <a style="--signal-color:#0078D4" href="https://azure.microsoft.com/en-us/products/ai-foundry/" target="_blank" rel="noreferrer noopener">Azure AI Foundry</a>
+        </div>
+        <div class="hero-actions">
+          <a class="cta" href="#stack">Explore The Stack</a>
+          <a class="ghost" href="#hill">Read The Core Takeaway</a>
+        </div>
+      </div>
+
+      <aside class="signal-panel" id="signalPanel" aria-label="Report signal summary">
+        <div class="signal-inner">
+          <div class="panel-top">
+            <div>
+              <p class="micro-label">Mayowa's read</p>
+              <h2 data-write>Build systems that build capability.</h2>
+            </div>
+            <div class="satin-meter" aria-hidden="true"><img src="assets/brand/microsoft-build-logo.png" alt="" decoding="async"></div>
+          </div>
+
+          <ul class="signal-list">
+            <li>
+              <img class="signal-asset contain" src="assets/brand/github-mark.png" alt="" decoding="async">
+              <span><strong>From Friction To System</strong><span>Turn persistent operational friction into a clear workflow, prototype, automation, agent, or product opportunity.</span></span>
+            </li>
+            <li>
+              <img class="signal-asset" src="assets/brand/windows-demo.jpg" alt="" decoding="async">
+              <span><strong>Windows + GitHub Were Practical Anchors</strong><span>The operating system and developer workflow were positioned as central places where agentic work can be built, run, reviewed, and governed.</span></span>
+            </li>
+            <li>
+              <img class="signal-asset" src="assets/brand/microsoft-build-logo.png" alt="" decoding="async">
+              <span><strong>Responsibility Has To Scale Too</strong><span>Cybersecurity, compliance, governance, evals, and visibility have to be designed into the work from the beginning.</span></span>
+            </li>
+          </ul>
+
+          <div class="panel-bottom">
+            <span>PLI-styled personal report, not an official Microsoft publication.</span>
+            <span>Updated June 9, 2026</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section section--band reveal" id="shift">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">The big shift</p>
+          <h2>From idea to shipped systems.</h2>
+        </div>
+        <p class="section-lede">Across the announcements, the useful signal was simple: the path from idea, prototype, secure workflow, deployment, and iteration is becoming more accessible for builders who know how to design responsibly.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Friction Becomes Product Strategy.</h3>
+          <p>A persistent gap can become a workflow map, a prototype, an automation, or a tool that compounds the next build.</p>
+        </article>
+        <article class="card">
+          <h3>Agents Can Help Build The Solution.</h3>
+          <p>The important shift is designing agents and workflows that assist the build itself: planning, drafting, testing, retrieval, data connection, and repeatable execution.</p>
+        </article>
+        <article class="card">
+          <h3>Trust Is Part Of The Craft.</h3>
+          <p>Security, compliance, identity, evals, observability, and governance are not later-stage polish. They are part of whether the build is real.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="stack">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Interactive stack explorer</p>
+          <h2>The Microsoft builder stack, translated.</h2>
+        </div>
+        <p class="section-lede">Click through the layers. The priority here is Windows, GitHub, OpenAI, and the practical chain from concept to governed deployment, with the newer platform pieces supporting that path.</p>
+      </div>
+
+      <div class="stack-layout">
+        <div class="stack-buttons" id="stackButtons" aria-label="Agent stack layers"></div>
+        <article class="tool-panel" aria-live="polite">
+          <div class="tool-content">
+            <p class="micro-label" id="stackKicker">Layer</p>
+            <h3 id="stackTitle">Loading</h3>
+            <div class="tool-visual" id="stackVisual">
+              <img id="stackImage" src="assets/brand/github-rayfin-demo.jpg" alt="" loading="lazy" decoding="async">
+              <a class="image-credit" id="stackImageCredit" href="#" target="_blank" rel="noreferrer noopener">Image Source</a>
+            </div>
+            <p id="stackBody"></p>
+            <div class="mini-tags" id="stackTags"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--band reveal" id="timeline">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Build signals</p>
+          <h2>The announcements that shaped the story.</h2>
+        </div>
+        <p class="section-lede">These are the moments that best explain where Microsoft is pointing builders: agentic development, Windows as a trusted runtime, model-powered capability, production governance, and data-backed deployment.</p>
+      </div>
+
+      <div class="timeline-layout">
+        <div class="timeline-list" id="timelineButtons" aria-label="Build signal list"></div>
+        <article class="timeline-detail" aria-live="polite">
+          <p class="micro-label" id="timelineDate">Signal</p>
+          <h3 id="timelineTitle">Loading</h3>
+          <p id="timelineBody"></p>
+          <a id="timelineLink" href="#" target="_blank" rel="noreferrer noopener">View Source</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="hill">
+      <div class="quote-panel">
+        <p class="section-kicker">Mayowa's core takeaway</p>
+        <h2 data-write>The advantage is knowing how to turn ideas into governed systems.</h2>
+        <p>My biggest takeaway from Microsoft Build was that the full builder pathway is becoming more accessible: idea, product strategy, workflow design, prototype, data architecture, agents, security, cloud infrastructure, deployment, evals, observability, and iteration. Windows and GitHub made that pathway feel practical. Microsoft Foundry, OpenAI-compatible agent patterns, and the broader model ecosystem made the capability feel deeper. Compliance, cybersecurity, governance, and cost control are what make the work credible enough to scale.</p>
+        <ul class="builder-chain" aria-label="Builder path">
+          <li>Idea</li>
+          <li>Product Strategy</li>
+          <li>UX / Workflow Mapping</li>
+          <li>Rapid Prototyping</li>
+          <li>Feedback Loops</li>
+          <li>Agentic Innovation</li>
+          <li>LLM Design</li>
+          <li>RAG + Vector Search</li>
+          <li>Database Architecture</li>
+          <li>Auth + Security</li>
+          <li>Compliance</li>
+          <li>GitHub + Cloud</li>
+          <li>CI / CD</li>
+          <li>Deployment</li>
+          <li>Evals + Observability</li>
+          <li>Governance</li>
+          <li>Reliability + Cost</li>
+          <li>Growth + Scale</li>
+        </ul>
+      </div>
+
+      <div class="loop" aria-label="Responsible builder loop">
+        <article class="loop-step">
+          <span class="loop-icon" aria-hidden="true"></span>
+          <h3>Define The Opportunity</h3>
+          <p>Start with a real gap, workflow, or idea that is worth turning into a structured solution.</p>
+        </article>
+        <article class="loop-step">
+          <span class="loop-icon" aria-hidden="true"></span>
+          <h3>Map The System</h3>
+          <p>Translate the idea into product strategy, UX flow, data, permissions, and success signals.</p>
+        </article>
+        <article class="loop-step">
+          <span class="loop-icon" aria-hidden="true"></span>
+          <h3>Compound Capability</h3>
+          <p>Use GitHub, OpenAI, agents, RAG, databases, and automation to build tools that make the next build faster.</p>
+        </article>
+        <article class="loop-step">
+          <span class="loop-icon" aria-hidden="true"></span>
+          <h3>Earn Trust</h3>
+          <p>Add security, compliance, evals, observability, and approval paths before the system earns scale.</p>
+        </article>
+        <article class="loop-step">
+          <span class="loop-icon" aria-hidden="true"></span>
+          <h3>Scale Responsibly</h3>
+          <p>Deploy, learn from feedback, manage cost and reliability, and keep human judgment in the loop.</p>
+        </article>
+      </div>
+
+      <p class="note">That is the personal part of Build for me: individual builders have more leverage than ever, but the responsibility has to move at the same speed as the ambition.</p>
+    </section>
+
+    <section class="section section--band reveal" id="audiences">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">What it means</p>
+          <h2>Different audiences, different implications.</h2>
+        </div>
+        <p class="section-lede">Build 2026 was a developer event, but the implications stretch across leaders, builders, security teams, creators, and anyone trying to understand where AI work is heading.</p>
+      </div>
+
+      <div class="audience-tabs" id="audienceTabs" aria-label="Audience tabs"></div>
+      <article class="audience-panel" aria-live="polite">
+        <div>
+          <p class="micro-label" id="audienceKicker">Audience</p>
+          <h3 id="audienceTitle">Loading</h3>
+          <p id="audienceBody"></p>
+        </div>
+        <ul class="takeaway-list" id="audienceList"></ul>
+      </article>
+    </section>
+
+    <section class="section reveal" id="notebook">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">From my Build notebook</p>
+          <h2>The live notes that stayed with me.</h2>
+        </div>
+        <p class="section-lede">These were the sticky ideas from my event notes after Build: some public-facing, some future-facing, all pointing toward agents as real systems.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Prompt to production</h3>
+          <p>Rayfin and Fabric made the backend problem feel central. The Build signal was clear: generated applications still need data, identity, permissions, security, governance, and reliable deployment.</p>
+        </article>
+        <article class="card">
+          <h3>Tooling Needs Proof Gates</h3>
+          <p>As agent toolchains get more capable, the important discipline is proving what they can access, what they changed, how they were tested, and who approved the result.</p>
+        </article>
+        <article class="card">
+          <h3>Local AI Increases Control</h3>
+          <p>Cloud AI remains important, but local and hybrid execution matter for privacy, resilience, cost control, and workflows that need tighter operational control.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--band reveal" id="sources">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">Source map</p>
+          <h2>Official sources and working notes.</h2>
+        </div>
+        <p class="section-lede">This report combines official Microsoft/GitHub materials with Mayowa's public-facing notes and synthesis. Product status can change, so source links stay visible.</p>
+      </div>
+
+      <details class="source-drawer" open>
+        <summary>Source Links</summary>
+        <div class="source-grid">
+          <a href="https://news.microsoft.com/build-2026/" target="_blank" rel="noreferrer noopener">Microsoft Build 2026 Homepage</a>
+          <a href="https://news.microsoft.com/build-2026-live-blog/" target="_blank" rel="noreferrer noopener">Microsoft Build Live Blog</a>
+          <a href="https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/" target="_blank" rel="noreferrer noopener">Enterprise Agent Platform Framing</a>
+          <a href="https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/" target="_blank" rel="noreferrer noopener">Official Microsoft Build Recap</a>
+          <a href="https://devblogs.microsoft.com/foundry/whats-new-in-microsoft-foundry-build-2026/" target="_blank" rel="noreferrer noopener">Microsoft Foundry Build Updates</a>
+          <a href="https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/" target="_blank" rel="noreferrer noopener">GitHub Copilot App</a>
+          <a href="https://openai.com/" target="_blank" rel="noreferrer noopener">OpenAI Research And Products</a>
+          <a href="https://blogs.windows.com/windowsdeveloper/2026/06/02/build-2026-furthering-windows-as-the-trusted-platform-for-development/" target="_blank" rel="noreferrer noopener">Windows As Trusted Development Platform</a>
+          <a href="https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" target="_blank" rel="noreferrer noopener">Fabric, Databases, And Agentic Apps</a>
+          <a href="https://microsoft.ai/news/building-a-hillclimbing-machine-launching-seven-new-mai-models/" target="_blank" rel="noreferrer noopener">MAI Model Announcements</a>
+          <a href="https://news.microsoft.com/source/features/innovation/majorana-2-microsoft-discovery-agentic-ai" target="_blank" rel="noreferrer noopener">Microsoft Discovery And Majorana 2</a>
+        </div>
+      </details>
+    </section>
+
+    <section class="section reveal">
+      <div class="signature">
+        <div>
+          <img class="signature-pli-logo" src="assets/pli/pli-wordmark-white.png" alt="PLI" loading="lazy" decoding="async">
+          <p class="section-kicker">Signed</p>
+          <h2>A report by Mayowa Alaketu.</h2>
+          <p>My read: Build made the builder pathway feel more concrete. Windows, GitHub, Microsoft Foundry, OpenAI-compatible agent patterns, and Microsoft's data and governance layers make it easier to move from idea to working system when the work is secure, observable, and governed.</p>
+        </div>
+        <aside class="signature-card" aria-label="Author signature">
+          <img class="signature-avatar" src="assets/author/mayowa-portrait.png" alt="Mayowa Alaketu" loading="lazy" decoding="async">
+          <div>
+            <strong>Mayowa Alaketu</strong>
+            <span>Microsoft Build 2026 notes and synthesis</span>
+            <a href="https://www.linkedin.com/in/mayowa-alaketu-52472110b" target="_blank" rel="noreferrer noopener">LinkedIn Profile</a>
+          </div>
+        </aside>
+      </div>
+      <footer class="footer">
+        <span>Designed as a standalone interactive HTML report.</span>
+        <span>Source notes: official Microsoft/GitHub coverage plus Mayowa's public-facing event notes.</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const stackLayers = [
+      {
+        kicker: "Builder layer",
+        title: "GitHub: where ideas become working software",
+        body: "GitHub was a central Build signal in my notes because the workflow is becoming more agent-native: issues, sessions, worktrees, pull requests, reviews, and visible oversight. That is the workbench for turning an idea into something real.",
+        image: "assets/brand/github-rayfin-demo.jpg",
+        thumb: "assets/brand/github-mark.png",
+        imageFocus: "50% 28%",
+        thumbFocus: "50% 28%",
+        imageCredit: "Microsoft Build 2026 stage image / Cassidy Williams GitHub Copilot app demo",
+        imageCreditUrl: "https://www.tomsguide.com/news/live/microsoft-build-2026",
+        links: [
+          { label: "GitHub Copilot App", url: "https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/" },
+          { label: "Agentic Dev", url: "https://github.blog/" },
+          { label: "Pull Requests", url: "https://github.com/features/code-review" }
+        ]
+      },
+      {
+        kicker: "Execution layer",
+        title: "Windows: the trusted place agents can run",
+        body: "Windows was a practical anchor of the event. The story was Windows as a trusted development and execution platform for local AI, secure containers, agent workflows, Cloud PCs, dev hardware, and day-to-day work.",
+        image: "assets/brand/windows-demo.jpg",
+        thumb: "assets/brand/windows-demo.jpg",
+        imageFocus: "72% 34%",
+        thumbFocus: "72% 34%",
+        imageCredit: "Microsoft Build 2026 stage image / Windows local agent platform demo",
+        imageCreditUrl: "https://www.tomsguide.com/news/live/microsoft-build-2026",
+        links: [
+          { label: "Windows Platform", url: "https://blogs.windows.com/windowsdeveloper/2026/06/02/build-2026-furthering-windows-as-the-trusted-platform-for-development/" },
+          { label: "Local AI", url: "https://blogs.windows.com/windowsdeveloper/" },
+          { label: "Cloud PCs", url: "https://www.microsoft.com/en-us/windows-365" }
+        ]
+      },
+      {
+        kicker: "Model layer",
+        title: "OpenAI-compatible capability becomes a builder material",
+        body: "OpenAI matters in this report as part of the broader model and agent design landscape: reasoning, tool use, multimodal workflows, coding assistance, and OpenAI-compatible agent protocols are becoming materials builders can design around.",
+        image: "assets/brand/openai-wordmark.webp",
+        thumb: "assets/brand/openai-wordmark.webp",
+        imageFocus: "50% 50%",
+        thumbFocus: "50% 50%",
+        imageCredit: "OpenAI wordmark / official OpenAI site",
+        imageCreditUrl: "https://openai.com/",
+        contain: true,
+        links: [
+          { label: "OpenAI", url: "https://openai.com/" },
+          { label: "API Platform", url: "https://platform.openai.com/" },
+          { label: "Research", url: "https://openai.com/research/" }
+        ]
+      },
+      {
+        kicker: "Runtime layer",
+        title: "Foundry + Agent 365: production controls",
+        body: "Foundry and Agent 365 connect agent work to production concerns: hosted agents, tools, memory, evaluation, observability, agent identity, policy, and deployment into Microsoft work surfaces.",
+        image: "assets/brand/foundry-agent365-demo.jpg",
+        thumb: "assets/brand/foundry-agent365-demo.jpg",
+        imageFocus: "50% 24%",
+        thumbFocus: "50% 24%",
+        imageCredit: "Microsoft Build 2026 stage image / Agent 365 security and governance demo",
+        imageCreditUrl: "https://www.tomsguide.com/news/live/microsoft-build-2026",
+        links: [
+          { label: "Foundry Updates", url: "https://devblogs.microsoft.com/foundry/whats-new-in-microsoft-foundry-build-2026/" },
+          { label: "Agent Governance", url: "https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/" },
+          { label: "Evals", url: "https://learn.microsoft.com/en-us/azure/ai-foundry/" }
+        ]
+      },
+      {
+        kicker: "Context + data layer",
+        title: "Microsoft IQ, Fabric, and Rayfin: give agents something real to work with",
+        body: "An agent is only useful when it has grounded context and a trustworthy backend. Microsoft IQ, Fabric, databases, and Rayfin point toward systems that connect intent to data, permissions, search, state, and business workflows.",
+        image: "assets/brand/microsoft-iq-demo.jpg",
+        thumb: "assets/brand/microsoft-iq-demo.jpg",
+        imageFocus: "50% 27%",
+        thumbFocus: "50% 27%",
+        imageCredit: "Microsoft Build 2026 stage image / Microsoft IQ and Web IQ context demo",
+        imageCreditUrl: "https://www.tomsguide.com/news/live/microsoft-build-2026",
+        links: [
+          { label: "Microsoft IQ", url: "https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/" },
+          { label: "Fabric + Databases", url: "https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/" },
+          { label: "Vector Search", url: "https://learn.microsoft.com/en-us/azure/search/vector-search-overview" }
+        ]
+      },
+      {
+        kicker: "Frontier layer",
+        title: "Discovery: the same pattern beyond office work",
+        body: "Microsoft Discovery extends the same pattern beyond business productivity: specialized agents, hypotheses, validation, enterprise controls, and research loops guided by human expertise.",
+        image: "assets/brand/microsoft-discovery-demo.jpg",
+        thumb: "assets/brand/microsoft-discovery-demo.jpg",
+        imageFocus: "50% 24%",
+        thumbFocus: "50% 24%",
+        imageCredit: "Microsoft Build 2026 stage image / David Carmona Microsoft Discovery demo",
+        imageCreditUrl: "https://www.tomsguide.com/news/live/microsoft-build-2026",
+        links: [
+          { label: "Microsoft Discovery", url: "https://news.microsoft.com/source/features/innovation/majorana-2-microsoft-discovery-agentic-ai" },
+          { label: "R&D Agents", url: "https://news.microsoft.com/build-2026/" },
+          { label: "Research Workflows", url: "https://www.microsoft.com/en-us/research/" }
+        ]
+      }
+    ];
+
+    const timelineItems = [
+      {
+        date: "June 2026",
+        title: "Microsoft frames a full-stack builder path",
+        body: "The core story was practical capability: build in GitHub, run closer to the user in Windows, use model-powered agents, ground them with Microsoft IQ and data, and add governance before anything scales.",
+        link: "https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/"
+      },
+      {
+        date: "Context",
+        title: "Microsoft IQ becomes the context layer",
+        body: "Microsoft IQ pulled together work, enterprise, business, web, and data context. For non-experts, this is the difference between a generic chatbot and an agent that understands where the work actually lives.",
+        link: "https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/"
+      },
+      {
+        date: "Runtime",
+        title: "Foundry shifts toward production agents",
+        body: "Foundry updates focused on hosted agents, tools, memory, voice, orchestration, evaluations, trace replay, and optimization. The useful takeaway is that builders need more than capability; they need a governed way to run it.",
+        link: "https://devblogs.microsoft.com/foundry/whats-new-in-microsoft-foundry-build-2026/"
+      },
+      {
+        date: "Developers",
+        title: "GitHub Copilot becomes an agent-native work surface",
+        body: "The GitHub Copilot app story matters because it makes the agentic workflow visible: parallel sessions, worktrees, issues, pull requests, reviews, and developer oversight in one place.",
+        link: "https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/"
+      },
+      {
+        date: "Local",
+        title: "Windows is positioned as an agent platform",
+        body: "Windows announcements pointed to a trusted local runtime for agents: developer configurations, intelligent terminal concepts, Microsoft Execution Containers, Windows 365 for Agents, local AI APIs, and device models.",
+        link: "https://blogs.windows.com/windowsdeveloper/2026/06/02/build-2026-furthering-windows-as-the-trusted-platform-for-development/"
+      },
+      {
+        date: "Data",
+        title: "Rayfin and Fabric connect prompts to production backends",
+        body: "Rayfin stood out in Mayowa's notes because coding agents can create screens quickly, but production backends, auth, access policies, and data governance are still the bottleneck.",
+        link: "https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/"
+      },
+      {
+        date: "Frontier",
+        title: "Microsoft Discovery shows the science version",
+        body: "Discovery and the R&D announcements made the story bigger than productivity. The same agent stack pattern can support hypothesis generation, validation, experiments, and continuous research workflows.",
+        link: "https://news.microsoft.com/source/features/innovation/majorana-2-microsoft-discovery-agentic-ai"
+      }
+    ];
+
+    const audienceItems = [
+      {
+        title: "For leaders",
+        kicker: "CIO / CTO / Operators",
+        body: "Treat agents as production software, not experiments. The question is not only which model to buy, but which system can safely run agents across your workflows.",
+        list: ["Inventory agents and owners.", "Measure workflow outcomes, not just hours saved.", "Require evals, logs, permissions, and rollback paths."]
+      },
+      {
+        title: "For builders",
+        kicker: "Developers / Product teams",
+        body: "The craft is shifting from writing isolated apps to orchestrating agent systems: tools, memory, data layers, evals, backends, and user oversight.",
+        list: ["Design tools agents can actually use.", "Build proof gates for generated tools.", "Make context and evaluation part of the product."]
+      },
+      {
+        title: "For security teams",
+        kicker: "Risk / Compliance",
+        body: "When agents can act, trust becomes an operational interface. Teams will need identity, access control, policy, audit trails, runtime containment, and evidence that the system works.",
+        list: ["Require agent identities and scopes.", "Watch data movement and tool calls.", "Evaluate behavior before broad deployment."]
+      },
+      {
+        title: "For creators",
+        kicker: "Media / Operations",
+        body: "Agent systems will make content workflows more automated, but the best systems will still need taste, human review, file understanding, local execution, and clear creative direction.",
+        list: ["Use AI for routing, drafts, summaries, and assembly.", "Keep human taste in the final loop.", "Build reusable workflows, not one-off prompts."]
+      },
+      {
+        title: "For everyone else",
+        kicker: "Non-experts",
+        body: "The simple version: AI is becoming less like a single search or chat interface and more like governed software agents that need instructions, tools, permissions, evaluation, and supervision.",
+        list: ["Ask what the agent can access.", "Ask what it is allowed to do.", "Ask how you know it did a good job."]
+      }
+    ];
+
+    const stackButtons = document.getElementById("stackButtons");
+    const stackKicker = document.getElementById("stackKicker");
+    const stackTitle = document.getElementById("stackTitle");
+    const stackVisual = document.getElementById("stackVisual");
+    const stackImage = document.getElementById("stackImage");
+    const stackImageCredit = document.getElementById("stackImageCredit");
+    const stackBody = document.getElementById("stackBody");
+    const stackTags = document.getElementById("stackTags");
+    const toolPanel = document.querySelector(".tool-panel");
+    const timelineButtons = document.getElementById("timelineButtons");
+    const timelineDate = document.getElementById("timelineDate");
+    const timelineTitle = document.getElementById("timelineTitle");
+    const timelineBody = document.getElementById("timelineBody");
+    const timelineLink = document.getElementById("timelineLink");
+    const timelineDetail = document.querySelector(".timeline-detail");
+    const audienceTabs = document.getElementById("audienceTabs");
+    const audienceKicker = document.getElementById("audienceKicker");
+    const audienceTitle = document.getElementById("audienceTitle");
+    const audienceBody = document.getElementById("audienceBody");
+    const audienceList = document.getElementById("audienceList");
+    let stackSwapTimer;
+    let timelineSwapTimer;
+
+    function clearActive(container) {
+      [...container.children].forEach((child) => {
+        child.classList.remove("active");
+        if (child.tagName === "BUTTON") child.setAttribute("aria-pressed", "false");
+      });
+    }
+
+    function renderStack(index) {
+      const item = stackLayers[index];
+      clearActive(stackButtons);
+      stackButtons.children[index].classList.add("active");
+      stackButtons.children[index].setAttribute("aria-pressed", "true");
+      window.clearTimeout(stackSwapTimer);
+      toolPanel.classList.add("is-swapping");
+      stackSwapTimer = window.setTimeout(() => {
+        stackKicker.textContent = item.kicker;
+        stackTitle.textContent = item.title;
+        stackImage.src = item.image;
+        stackImage.alt = item.title;
+        stackImage.classList.toggle("contain", Boolean(item.contain));
+        stackImage.style.objectPosition = item.imageFocus || "50% 35%";
+        stackVisual.style.setProperty("--image-focus", item.imageFocus || "50% 35%");
+        stackImageCredit.textContent = item.imageCredit || "Image Source";
+        stackImageCredit.href = item.imageCreditUrl || "#";
+        stackImageCredit.style.display = item.imageCredit ? "block" : "none";
+        stackBody.textContent = item.body;
+        stackTags.replaceChildren(...item.links.map((link) => {
+          const anchor = document.createElement("a");
+          anchor.textContent = link.label;
+          anchor.href = link.url;
+          anchor.target = "_blank";
+          anchor.rel = "noreferrer noopener";
+          return anchor;
+        }));
+        toolPanel.classList.remove("is-swapping");
+      }, 130);
+    }
+
+    function renderTimeline(index) {
+      const item = timelineItems[index];
+      clearActive(timelineButtons);
+      timelineButtons.children[index].classList.add("active");
+      timelineButtons.children[index].setAttribute("aria-pressed", "true");
+      window.clearTimeout(timelineSwapTimer);
+      timelineDetail.classList.add("is-swapping");
+      timelineSwapTimer = window.setTimeout(() => {
+        timelineDate.textContent = item.date;
+        timelineTitle.textContent = item.title;
+        timelineBody.textContent = item.body;
+        timelineLink.href = item.link;
+        timelineDetail.classList.remove("is-swapping");
+      }, 120);
+    }
+
+    function renderAudience(index) {
+      const item = audienceItems[index];
+      clearActive(audienceTabs);
+      audienceTabs.children[index].classList.add("active");
+      audienceTabs.children[index].setAttribute("aria-pressed", "true");
+      audienceKicker.textContent = item.kicker;
+      audienceTitle.textContent = item.title;
+      audienceBody.textContent = item.body;
+      audienceList.replaceChildren(...item.list.map((text) => {
+        const li = document.createElement("li");
+        li.textContent = text;
+        return li;
+      }));
+    }
+
+    stackLayers.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "stack-button";
+      button.setAttribute("aria-pressed", "false");
+      const thumb = document.createElement("img");
+      thumb.className = "stack-thumb" + (item.contain ? " contain" : "");
+      thumb.src = item.thumb;
+      thumb.alt = "";
+      thumb.loading = "lazy";
+      thumb.decoding = "async";
+      thumb.style.objectPosition = item.thumbFocus || item.imageFocus || "50% 35%";
+      const label = document.createElement("span");
+      const labelTitle = document.createElement("strong");
+      labelTitle.textContent = item.title.split(":")[0];
+      const labelBreak = document.createElement("br");
+      const labelKicker = document.createElement("span");
+      labelKicker.textContent = item.kicker;
+      label.append(labelTitle, labelBreak, labelKicker);
+      button.append(thumb, label);
+      button.addEventListener("click", () => renderStack(index));
+      stackButtons.appendChild(button);
+    });
+
+    timelineItems.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "timeline-button";
+      button.setAttribute("aria-pressed", "false");
+      const date = document.createElement("span");
+      date.textContent = item.date;
+      const title = document.createElement("strong");
+      title.textContent = item.title;
+      button.append(date, title);
+      button.addEventListener("click", () => renderTimeline(index));
+      timelineButtons.appendChild(button);
+    });
+
+    audienceItems.forEach((item, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "pill-button";
+      button.setAttribute("aria-pressed", "false");
+      const label = item.title.replace("For ", "");
+      button.textContent = label.replace(/\b\w/g, (letter) => letter.toUpperCase());
+      button.addEventListener("click", () => renderAudience(index));
+      audienceTabs.appendChild(button);
+    });
+
+    renderStack(0);
+    renderTimeline(0);
+    renderAudience(0);
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const smallViewport = window.matchMedia("(max-width: 760px)").matches;
+    const motionOK = !reducedMotion && !smallViewport;
+    const navButtons = [...document.querySelectorAll("[data-jump]")];
+    let navTravelTimer;
+
+    if (stackVisual) {
+      const visualObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          stackVisual.classList.toggle("is-expanded", entry.isIntersecting);
+        });
+      }, { threshold: 0.35 });
+      visualObserver.observe(stackVisual);
+    }
+
+    function travelToSection(button) {
+      const target = document.getElementById(button.dataset.jump);
+      if (!target) return;
+      navButtons.forEach((navButton) => navButton.classList.toggle("is-jumping", navButton === button));
+      document.body.classList.add("nav-traveling");
+      target.scrollIntoView({ behavior: motionOK ? "smooth" : "auto", block: "start" });
+      window.clearTimeout(navTravelTimer);
+      navTravelTimer = window.setTimeout(() => {
+        document.body.classList.remove("nav-traveling");
+        button.classList.remove("is-jumping");
+      }, motionOK ? 560 : 120);
+    }
+
+    navButtons.forEach((button) => {
+      button.addEventListener("click", () => travelToSection(button));
+    });
+
+    const sections = navButtons.map((button) => document.getElementById(button.dataset.jump)).filter(Boolean);
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navButtons.forEach((button) => {
+            const isActive = button.dataset.jump === entry.target.id;
+            button.classList.toggle("active", isActive);
+            if (isActive) {
+              button.setAttribute("aria-current", "true");
+            } else {
+              button.removeAttribute("aria-current");
+            }
+          });
+        }
+      });
+    }, { rootMargin: "-38% 0px -55% 0px", threshold: 0.01 });
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((item) => revealObserver.observe(item));
+
+    function prepareWriteIn(element) {
+      const text = element.textContent.trim();
+      element.textContent = "";
+      element.setAttribute("aria-label", text);
+      element.classList.add("write-in");
+      let animatedIndex = 0;
+      text.split(" ").forEach((word, wordIndex, words) => {
+        const wordWrap = document.createElement("span");
+        wordWrap.className = "word";
+        [...word].forEach((character) => {
+          const span = document.createElement("span");
+          span.className = "char";
+          span.style.setProperty("--char-index", animatedIndex);
+          span.textContent = character;
+          wordWrap.appendChild(span);
+          animatedIndex += 1;
+        });
+        element.appendChild(wordWrap);
+        if (wordIndex < words.length - 1) element.appendChild(document.createTextNode(" "));
+      });
+    }
+
+    if (motionOK) {
+      const writeTargets = [...document.querySelectorAll("[data-write]")];
+      writeTargets.forEach(prepareWriteIn);
+      const writeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-writing");
+            writeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      writeTargets.forEach((item) => writeObserver.observe(item));
+    }
+
+    const progressBar = document.getElementById("progressBar");
+    let progressTicking = false;
+    function updateProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const value = max <= 0 ? 0 : (window.scrollY / max) * 100;
+      progressBar.style.width = value + "%";
+    }
+
+    function requestProgressUpdate() {
+      if (progressTicking) return;
+      progressTicking = true;
+      window.requestAnimationFrame(() => {
+        updateProgress();
+        progressTicking = false;
+      });
+    }
+
+    window.addEventListener("scroll", requestProgressUpdate, { passive: true });
+    updateProgress();
+
+    const panel = document.getElementById("signalPanel");
+    if (panel) {
+      let panelTicking = false;
+      let panelX = 48;
+      let panelY = 42;
+      panel.addEventListener("pointermove", (event) => {
+        if (!finePointer) return;
+        const rect = panel.getBoundingClientRect();
+        panelX = ((event.clientX - rect.left) / rect.width) * 100;
+        panelY = ((event.clientY - rect.top) / rect.height) * 100;
+        if (panelTicking) return;
+        panelTicking = true;
+        window.requestAnimationFrame(() => {
+          panel.style.setProperty("--spot-x", panelX + "%");
+          panel.style.setProperty("--spot-y", panelY + "%");
+          panelTicking = false;
+        });
+      });
+    }
+
+    const cursorDot = document.getElementById("cursorDot");
+    const cursorTrails = [
+      { element: document.getElementById("cursorTrailOne"), x: window.innerWidth / 2, y: window.innerHeight / 2, speed: .20, scale: 1 },
+      { element: document.getElementById("cursorTrailTwo"), x: window.innerWidth / 2, y: window.innerHeight / 2, speed: .13, scale: .86 },
+      { element: document.getElementById("cursorTrailThree"), x: window.innerWidth / 2, y: window.innerHeight / 2, speed: .08, scale: .72 }
+    ];
+    let cursorX = window.innerWidth / 2;
+    let cursorY = window.innerHeight / 2;
+    let previousCursorX = cursorX;
+    let previousCursorY = cursorY;
+    let cursorAngle = 90;
+    let cursorFrame = 0;
+    let cursorActiveUntil = 0;
+
+    function animateCursor() {
+      let stillSettling = false;
+      cursorTrails.forEach((trail) => {
+        trail.x += (cursorX - trail.x) * trail.speed;
+        trail.y += (cursorY - trail.y) * trail.speed;
+        if (Math.abs(cursorX - trail.x) + Math.abs(cursorY - trail.y) > .35) stillSettling = true;
+        trail.element.style.transform = "translate(" + trail.x + "px, " + trail.y + "px) translate(-50%, -50%) rotate(" + cursorAngle + "deg) scale(" + trail.scale + ")";
+      });
+
+      if (stillSettling || Date.now() < cursorActiveUntil) {
+        cursorFrame = window.requestAnimationFrame(animateCursor);
+      } else {
+        cursorFrame = 0;
+      }
+    }
+
+    if (!reducedMotion && finePointer && cursorDot && cursorTrails.every((trail) => trail.element)) {
+      window.addEventListener("pointermove", (event) => {
+        previousCursorX = cursorX;
+        previousCursorY = cursorY;
+        cursorX = event.clientX;
+        cursorY = event.clientY;
+        const dx = cursorX - previousCursorX;
+        const dy = cursorY - previousCursorY;
+        if (Math.abs(dx) + Math.abs(dy) > 1) cursorAngle = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+        cursorDot.style.transform = "translate(" + cursorX + "px, " + cursorY + "px) translate(-50%, -50%) scale(var(--cursor-scale, 1))";
+        cursorActiveUntil = Date.now() + 320;
+        if (!cursorFrame) cursorFrame = window.requestAnimationFrame(animateCursor);
+      }, { passive: true });
+
+      document.querySelectorAll("a, button, summary, .card, .loop-step, .signal-panel, .tool-visual").forEach((item) => {
+        item.addEventListener("pointerenter", () => document.body.classList.add("cursor-active"));
+        item.addEventListener("pointerleave", () => document.body.classList.remove("cursor-active"));
+      });
+    }
+  </script>
+</body>
+</html>
