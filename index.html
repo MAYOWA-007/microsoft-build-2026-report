@@ -254,6 +254,12 @@
       white-space: nowrap;
     }
 
+    .brand-logo-link {
+      display: inline-flex;
+      flex: 0 0 auto;
+      border-radius: var(--radius);
+    }
+
     .brand-mark {
       display: block;
       width: clamp(118px, 12vw, 160px);
@@ -284,6 +290,14 @@
       font-size: 12px;
       line-height: 1.1;
       color: var(--ink);
+    }
+
+    .brand-chip small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.1;
     }
 
     .nav {
@@ -1559,11 +1573,13 @@
 
   <main class="app">
     <header class="topbar">
-      <a class="brand-chip" href="#top" aria-label="Back to report opening">
-        <img class="brand-mark" src="assets/brand/microsoft-build-logo-transparent.png" alt="" decoding="async">
+      <div class="brand-chip">
+        <a class="brand-logo-link" href="https://news.microsoft.com/build-2026/" target="_blank" rel="noreferrer noopener" aria-label="Open the official Microsoft Build 2026 news hub">
+          <img class="brand-mark" src="assets/brand/microsoft-build-logo-transparent.png" alt="" decoding="async">
+        </a>
         <span class="brand-divider" aria-hidden="true"></span>
-        <span><strong>Microsoft Build 2026</strong><span>Report</span></span>
-      </a>
+        <span><strong>Microsoft Build 2026</strong><span>Report</span><small>by Mayowa Alaketu</small></span>
+      </div>
       <nav class="nav" aria-label="Report sections">
         <button type="button" data-jump="shift">Shift</button>
         <button type="button" data-jump="stack">Stack</button>
