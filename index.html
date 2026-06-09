@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-bF9eDr17AutbKtHLrxmxe1q6YXKU1MHZm4JMuT3RV1E='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-E/RTipgQRJAyv1Fps3eimHiXrwGvducua7lRJcNxeoA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mayowa Alaketu's interactive report from Microsoft Build 2026.">
+  <meta name="description" content="My interactive report from Microsoft Build 2026.">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="theme-color" content="#033024">
   <link rel="icon" href="assets/brand/microsoft-build-logo.png" type="image/png">
-  <title>Mayowa's Microsoft Build 2026 Report</title>
+  <title>My Microsoft Build 2026 Report</title>
   <style>
     @font-face {
       font-family: "Helvetica Neue LT Std";
-      src: url("assets/pli/fonts/HelveticaNeueLTStd-500.ttf") format("truetype");
+      src: url("assets/fonts/HelveticaNeueLTStd-500.ttf") format("truetype");
       font-weight: 500;
       font-style: normal;
       font-display: swap;
@@ -22,7 +22,7 @@
 
     @font-face {
       font-family: "Helvetica Neue LT Std";
-      src: url("assets/pli/fonts/HelveticaNeueLTStd-700.ttf") format("truetype");
+      src: url("assets/fonts/HelveticaNeueLTStd-700.ttf") format("truetype");
       font-weight: 700;
       font-style: normal;
       font-display: swap;
@@ -30,19 +30,19 @@
 
     @font-face {
       font-family: "Helvetica Neue LT Std";
-      src: url("assets/pli/fonts/HelveticaNeueLTStd-300.ttf") format("truetype");
+      src: url("assets/fonts/HelveticaNeueLTStd-300.ttf") format("truetype");
       font-weight: 300;
       font-style: normal;
       font-display: swap;
     }
 
     :root {
-      --pli-red: #E4002B;
-      --pli-black: #000000;
-      --pli-white: #FFFFFF;
-      --pli-paper: #F8F5F9;
-      --pli-line: #E8E0EA;
-      --pli-muted: #545057;
+      --accent-red: #E4002B;
+      --ink-primary: #000000;
+      --surface-white: #FFFFFF;
+      --surface-soft: #F8F5F9;
+      --line-soft: #E8E0EA;
+      --muted-soft: #545057;
       --ink: #000000;
       --ink-soft: #332f31;
       --muted: #545057;
@@ -122,7 +122,7 @@
     }
 
     :focus-visible {
-      outline: 3px solid var(--pli-red);
+      outline: 3px solid var(--accent-red);
       outline-offset: 3px;
     }
 
@@ -222,7 +222,7 @@
       gap: 14px;
       align-items: center;
       padding: 10px;
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       border-radius: var(--radius);
       background: rgba(255, 255, 255, .96);
       box-shadow: 0 12px 34px rgba(0, 0, 0, .08);
@@ -236,7 +236,7 @@
       top: 6px;
       height: 3px;
       border-radius: 999px;
-      background: linear-gradient(90deg, var(--pli-red), var(--gold-light), var(--emerald), var(--lime));
+      background: linear-gradient(90deg, var(--accent-red), var(--gold-light), var(--emerald), var(--lime));
       opacity: .94;
       pointer-events: none;
     }
@@ -249,16 +249,25 @@
       min-height: 42px;
       padding: 8px 11px;
       border-radius: var(--radius);
-      background: var(--pli-white);
-      border: 1px solid var(--pli-line);
+      background: var(--surface-white);
+      border: 1px solid var(--line-soft);
       white-space: nowrap;
     }
 
-    .pli-logo {
-      display: block;
-      width: 88px;
-      height: auto;
-      object-fit: contain;
+    .brand-mark {
+      display: inline-grid;
+      place-items: center;
+      min-width: 48px;
+      min-height: 28px;
+      padding: 4px 7px;
+      border-radius: var(--radius);
+      color: var(--surface-white);
+      background: linear-gradient(135deg, var(--accent-red), var(--emerald-deep));
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1;
+      text-transform: uppercase;
       flex: 0 0 auto;
     }
 
@@ -266,7 +275,7 @@
       width: 1px;
       align-self: stretch;
       min-height: 28px;
-      background: var(--pli-line);
+      background: var(--line-soft);
     }
 
     .brand-chip span,
@@ -316,7 +325,7 @@
     .pill-button.active {
       color: var(--emerald-deep);
       background: rgba(248, 245, 249, .86);
-      border-color: var(--pli-line);
+      border-color: var(--line-soft);
       transform: translateY(-1px);
     }
 
@@ -353,8 +362,8 @@
       margin: 0 0 22px;
       padding: 8px 10px;
       border-radius: var(--radius);
-      color: var(--pli-black);
-      border: 1px solid var(--pli-line);
+      color: var(--ink-primary);
+      border: 1px solid var(--line-soft);
       background: rgba(255,255,255,.88);
       font-weight: 700;
       font-size: 13px;
@@ -364,7 +373,7 @@
       content: "";
       width: 28px;
       height: 3px;
-      background: var(--pli-red);
+      background: var(--accent-red);
     }
 
     h1,
@@ -387,7 +396,7 @@
 
     .text-gradient {
       color: transparent;
-      background: linear-gradient(105deg, var(--pli-black) 0%, var(--pli-black) 45%, var(--emerald) 70%, var(--gold-dark) 100%);
+      background: linear-gradient(105deg, var(--ink-primary) 0%, var(--ink-primary) 45%, var(--emerald) 70%, var(--gold-dark) 100%);
       -webkit-background-clip: text;
       background-clip: text;
     }
@@ -412,7 +421,7 @@
       min-height: 32px;
       padding: 7px 10px;
       border-radius: var(--radius);
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       background: rgba(255,255,255,.86);
       color: var(--muted);
       font-size: 12px;
@@ -423,7 +432,7 @@
 
     .build-signal-row a:hover {
       color: var(--emerald-deep);
-      background: var(--pli-white);
+      background: var(--surface-white);
       border-color: rgba(148,113,0,.28);
       filter: drop-shadow(0 12px 20px rgba(3,48,36,.10));
       transform: translateY(-1px);
@@ -435,7 +444,7 @@
       height: 8px;
       margin-right: 8px;
       border-radius: 2px;
-      background: var(--signal-color, var(--pli-red));
+      background: var(--signal-color, var(--accent-red));
     }
 
     .hero-actions {
@@ -462,7 +471,7 @@
       color: var(--white);
       background:
         linear-gradient(135deg, rgba(255,255,255,.2), transparent 35%),
-        linear-gradient(135deg, var(--pli-black), var(--emerald-deep));
+        linear-gradient(135deg, var(--ink-primary), var(--emerald-deep));
       box-shadow: 0 18px 40px rgba(0,0,0,.18);
     }
 
@@ -489,10 +498,10 @@
       overflow: hidden;
       min-height: 560px;
       border-radius: var(--radius);
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       background:
         linear-gradient(145deg, rgba(255,255,255,.96), rgba(248,245,249,.92)),
-        var(--pli-white);
+        var(--surface-white);
       box-shadow: var(--shadow);
       transform-style: preserve-3d;
     }
@@ -503,7 +512,7 @@
       inset: 0;
       opacity: .9;
       background:
-        linear-gradient(90deg, var(--pli-red) 0 5px, transparent 5px),
+        linear-gradient(90deg, var(--accent-red) 0 5px, transparent 5px),
         linear-gradient(120deg, transparent 0 12%, rgba(214,187,114,.22) 12.2%, transparent 20%),
         linear-gradient(70deg, transparent 0 54%, rgba(3,48,36,.16) 54.2%, transparent 72%),
         repeating-linear-gradient(112deg, rgba(3,48,36,.045) 0 1px, transparent 1px 32px),
@@ -604,7 +613,7 @@
       align-items: center;
       padding: 14px;
       border-radius: var(--radius);
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       background: rgba(255,255,255,.78);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
       transition: transform .25s var(--ease), background .25s var(--ease);
@@ -667,7 +676,7 @@
       background:
         linear-gradient(180deg, rgba(255,255,255,.86), rgba(248,245,249,.92)),
         linear-gradient(120deg, rgba(228,0,43,.035), rgba(148,113,0,.07), rgba(3,48,36,.04));
-      border-block: 1px solid var(--pli-line);
+      border-block: 1px solid var(--line-soft);
     }
 
     .section-head {
@@ -680,7 +689,7 @@
 
     .section-kicker {
       margin: 0 0 12px;
-      color: var(--pli-red);
+      color: var(--accent-red);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0;
@@ -714,10 +723,10 @@
     .quote-panel,
     .audience-panel {
       border-radius: var(--radius);
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       background:
         linear-gradient(145deg, rgba(255,255,255,.98), rgba(248,245,249,.78)),
-        var(--pli-white);
+        var(--surface-white);
       box-shadow: 0 16px 42px rgba(0, 0, 0, .08);
     }
 
@@ -736,7 +745,7 @@
       top: 0;
       right: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--pli-red), var(--gold-light), var(--emerald), var(--lime));
+      background: linear-gradient(90deg, var(--accent-red), var(--gold-light), var(--emerald), var(--lime));
       opacity: .82;
     }
 
@@ -786,7 +795,7 @@
       width: 100%;
       padding: 13px;
       border-radius: var(--radius);
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       color: var(--ink-soft);
       background: rgba(255,255,255,.78);
       cursor: pointer;
@@ -798,7 +807,7 @@
     .stack-button.active {
       color: var(--emerald-deep);
       border-color: rgba(228,0,43,.22);
-      background: var(--pli-white);
+      background: var(--surface-white);
       transform: translateX(4px);
     }
 
@@ -980,7 +989,7 @@
 
     .timeline-button {
       width: 100%;
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       border-radius: var(--radius);
       padding: 15px;
       color: var(--ink-soft);
@@ -993,14 +1002,14 @@
     .timeline-button:hover,
     .timeline-button.active {
       transform: translateX(4px);
-      background: var(--pli-white);
+      background: var(--surface-white);
       border-color: rgba(228,0,43,.22);
     }
 
     .timeline-button span {
       display: block;
       margin-bottom: 5px;
-      color: var(--pli-red);
+      color: var(--accent-red);
       font-size: 12px;
       font-weight: 900;
       text-transform: uppercase;
@@ -1022,7 +1031,7 @@
       position: absolute;
       inset: 16px;
       border-radius: var(--radius);
-      border: 1px solid var(--pli-line);
+      border: 1px solid var(--line-soft);
       pointer-events: none;
     }
 
@@ -1073,7 +1082,7 @@
 
     .loop-step:hover {
       transform: translateY(-4px);
-      background: var(--pli-white);
+      background: var(--surface-white);
     }
 
     .loop-icon {
@@ -1121,7 +1130,7 @@
       padding: clamp(24px, 4vw, 44px);
       background:
         linear-gradient(135deg, rgba(0,0,0,.97), rgba(3,48,36,.92)),
-        var(--pli-black);
+        var(--ink-primary);
       color: var(--white);
       overflow: hidden;
       position: relative;
@@ -1132,7 +1141,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, var(--pli-red) 0 6px, transparent 6px),
+        linear-gradient(90deg, var(--accent-red) 0 6px, transparent 6px),
         linear-gradient(110deg, transparent 0 54%, rgba(214,187,114,.18) 55%, transparent 67%),
         repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px 42px);
       pointer-events: none;
@@ -1268,7 +1277,7 @@
 
     .source-grid a:hover {
       transform: translateY(-2px);
-      background: var(--pli-white);
+      background: var(--surface-white);
       color: var(--emerald-deep);
     }
 
@@ -1282,7 +1291,7 @@
       color: var(--white);
       background:
         linear-gradient(135deg, rgba(0,0,0,.96), rgba(3,48,36,.88)),
-        var(--pli-black);
+        var(--ink-primary);
       box-shadow: 0 28px 72px rgba(0,0,0,.24);
       overflow: hidden;
       position: relative;
@@ -1293,7 +1302,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, var(--pli-red) 0 7px, transparent 7px),
+        linear-gradient(90deg, var(--accent-red) 0 7px, transparent 7px),
         linear-gradient(116deg, transparent 0 38%, rgba(214,187,114,.24) 39%, transparent 54%),
         repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 44px);
       pointer-events: none;
@@ -1327,14 +1336,6 @@
       border-radius: var(--radius);
       background: rgba(255,250,245,.12);
       border: 1px solid rgba(223,195,123,.28);
-    }
-
-    .signature-pli-logo {
-      display: block;
-      width: 94px;
-      height: auto;
-      margin-bottom: 12px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
     }
 
     .signature-avatar {
@@ -1393,7 +1394,7 @@
 
     .text-gradient.write-in .char {
       color: transparent;
-      background: linear-gradient(105deg, var(--pli-black) 0%, var(--pli-black) 45%, var(--emerald) 70%, var(--gold-dark) 100%);
+      background: linear-gradient(105deg, var(--ink-primary) 0%, var(--ink-primary) 45%, var(--emerald) 70%, var(--gold-dark) 100%);
       -webkit-background-clip: text;
       background-clip: text;
     }
@@ -1567,7 +1568,7 @@
   <main class="app">
     <header class="topbar">
       <a class="brand-chip" href="#top" aria-label="Back to report opening">
-        <img class="pli-logo" src="assets/pli/pli-wordmark-red-transparent.png" alt="PLI" decoding="async">
+        <span class="brand-mark" aria-hidden="true">Build</span>
         <span class="brand-divider" aria-hidden="true"></span>
         <span><strong>Microsoft Build 2026</strong><span>Report</span></span>
       </a>
@@ -1581,7 +1582,7 @@
       </nav>
       <a class="author-chip" href="https://www.linkedin.com/in/mayowa-alaketu-52472110b" target="_blank" rel="noreferrer noopener">
         <img class="author-avatar" src="assets/author/mayowa-portrait.png" alt="Mayowa Alaketu" decoding="async">
-        <span><strong>Mayowa Alaketu</strong><span>Report Author</span></span>
+        <span><strong>Mayowa Alaketu</strong><span>My Build Notes</span></span>
       </a>
     </header>
 
@@ -1589,7 +1590,7 @@
       <div>
         <p class="eyebrow">Microsoft Build 2026 / San Francisco and online</p>
         <h1><span class="text-gradient" data-write>Creativity and discipline make ideas scalable.</span></h1>
-        <p class="hero-copy">A personal report from Mayowa Alaketu on what Microsoft Build 2026 made feel immediate: creativity and determination matter, but the multiplier is the system around the idea. With the right workflow, tools, data, security, and feedback loops, a concept can move from raw spark to prototype, product, deployment, and scale.</p>
+        <p class="hero-copy">My personal read on what Microsoft Build 2026 made feel immediate: creativity and determination matter, but the multiplier is the system around the idea. With the right workflow, tools, data, security, and feedback loops, a concept can move from raw spark to prototype, product, deployment, and scale.</p>
         <div class="build-signal-row" aria-label="Microsoft Build topic signals">
           <a style="--signal-color:#7FBA00" href="https://blogs.windows.com/windowsdeveloper/2026/06/02/build-2026-furthering-windows-as-the-trusted-platform-for-development/" target="_blank" rel="noreferrer noopener">Windows</a>
           <a style="--signal-color:#FFB900" href="https://github.blog/news-insights/product-news/github-copilot-app-the-agent-native-desktop-experience/" target="_blank" rel="noreferrer noopener">GitHub + Dev Tools</a>
@@ -1607,7 +1608,7 @@
         <div class="signal-inner">
           <div class="panel-top">
             <div>
-              <p class="micro-label">Mayowa's read</p>
+              <p class="micro-label">My read</p>
               <h2 data-write>Build systems that build capability.</h2>
             </div>
             <div class="satin-meter" aria-hidden="true"><img src="assets/brand/microsoft-build-logo.png" alt="" decoding="async"></div>
@@ -1629,7 +1630,7 @@
           </ul>
 
           <div class="panel-bottom">
-            <span>PLI-styled personal report, not an official Microsoft publication.</span>
+            <span>Personal report, not an official Microsoft publication.</span>
             <span>Updated June 9, 2026</span>
           </div>
         </div>
@@ -1709,7 +1710,7 @@
 
     <section class="section reveal" id="hill">
       <div class="quote-panel">
-        <p class="section-kicker">Mayowa's core takeaway</p>
+        <p class="section-kicker">My core takeaway</p>
         <h2 data-write>The advantage is knowing how to turn ideas into governed systems.</h2>
         <p>My biggest takeaway from Microsoft Build was that the full builder pathway is becoming more accessible: idea, product strategy, workflow design, prototype, data architecture, agents, security, cloud infrastructure, deployment, evals, observability, and iteration. Windows and GitHub made that pathway feel practical. Microsoft Foundry, OpenAI-compatible agent patterns, and the broader model ecosystem made the capability feel deeper. Compliance, cybersecurity, governance, and cost control are what make the work credible enough to scale.</p>
         <ul class="builder-chain" aria-label="Builder path">
@@ -1816,7 +1817,7 @@
           <p class="section-kicker">Source map</p>
           <h2>Official sources and working notes.</h2>
         </div>
-        <p class="section-lede">This report combines official Microsoft/GitHub materials with Mayowa's public-facing notes and synthesis. Product status can change, so source links stay visible.</p>
+        <p class="section-lede">I combined official Microsoft/GitHub materials with my public-facing notes and synthesis. Product status can change, so source links stay visible.</p>
       </div>
 
       <details class="source-drawer" open>
@@ -1840,23 +1841,22 @@
     <section class="section reveal">
       <div class="signature">
         <div>
-          <img class="signature-pli-logo" src="assets/pli/pli-wordmark-white.png" alt="PLI" loading="lazy" decoding="async">
           <p class="section-kicker">Signed</p>
-          <h2>A report by Mayowa Alaketu.</h2>
+          <h2>My Microsoft Build 2026 report.</h2>
           <p>My read: Build made the builder pathway feel more concrete. Windows, GitHub, Microsoft Foundry, OpenAI-compatible agent patterns, and Microsoft's data and governance layers make it easier to move from idea to working system when the work is secure, observable, and governed.</p>
         </div>
         <aside class="signature-card" aria-label="Author signature">
           <img class="signature-avatar" src="assets/author/mayowa-portrait.png" alt="Mayowa Alaketu" loading="lazy" decoding="async">
           <div>
             <strong>Mayowa Alaketu</strong>
-            <span>Microsoft Build 2026 notes and synthesis</span>
+            <span>My Microsoft Build 2026 notes and synthesis</span>
             <a href="https://www.linkedin.com/in/mayowa-alaketu-52472110b" target="_blank" rel="noreferrer noopener">LinkedIn Profile</a>
           </div>
         </aside>
       </div>
       <footer class="footer">
-        <span>Designed as a standalone interactive HTML report.</span>
-        <span>Source notes: official Microsoft/GitHub coverage plus Mayowa's public-facing event notes.</span>
+        <span>Personal synthesis, not an official Microsoft publication.</span>
+        <span>Official source links and image credits are included above.</span>
       </footer>
     </section>
   </main>
@@ -1996,7 +1996,7 @@
       {
         date: "Data",
         title: "Rayfin and Fabric connect prompts to production backends",
-        body: "Rayfin stood out in Mayowa's notes because coding agents can create screens quickly, but production backends, auth, access policies, and data governance are still the bottleneck.",
+        body: "Rayfin stood out in my notes because coding agents can create screens quickly, but production backends, auth, access policies, and data governance are still the bottleneck.",
         link: "https://azure.microsoft.com/en-us/blog/microsoft-build-2026-building-agentic-apps-with-microsoft-fabric-and-microsoft-databases/"
       },
       {
